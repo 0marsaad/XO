@@ -5,16 +5,17 @@ public class TicTacToe {
     static private Player currentPlayer;
     private Player xPlayer = X_Player.getInstance();
     private Player oPlayer = O_player.getInstance();
-
-    private TicTacToe() {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[1].length; j++) {
-                board[i][j] = new Coordinates(i, j);
-            }
+//this class is a singleton class that represents the TicTacToe game
+private TicTacToe() {
+    // initialize the Backend board
+    for (int i = 0; i < board.length; i++) {
+        for (int j = 0; j < board[1].length; j++) {
+            board[i][j] = new Coordinates(i, j);
         }
-        gameState = GameState.CONTINUE;
-        currentPlayer = xPlayer;
     }
+    gameState = GameState.CONTINUE;
+    currentPlayer = xPlayer;
+}
 
     public GameState getGameState() {
         return gameState;
@@ -31,6 +32,7 @@ public class TicTacToe {
         return board;
     }
 
+    // this method is used to update the state of the game
     private void UpdateGameState() {
 
         if (board[0][0].getTurn() == board[1][1].getTurn() && board[1][1].getTurn() == board[2][2].getTurn()
@@ -108,8 +110,8 @@ public class TicTacToe {
         gameState = GameState.DRAW;
         
     }
-
-    void Move(int x, int y) {
+    //make a move
+    public void Move(int x, int y) {
         if (gameState == GameState.CONTINUE) {
             board[x][y].setTileState(currentPlayer.getTileState());
             UpdateGameState();

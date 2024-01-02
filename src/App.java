@@ -1,135 +1,91 @@
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
 
 public class App extends JFrame {
 
-    static TicTacToe ticTacToe;
-    static Button[][] button = new Button[3][3];
-    static ImageIcon x;
-    static ImageIcon o;
+    static Multi_PlayerGame Multi_game;
+    static SinglePlayerGame Single_game;
 
-    static class ButtonHandler implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-        Button clickedButton = (Button) e.getSource();
-        int x = clickedButton.getX();
-        int y = clickedButton.getY();
-
-        // Call the MakeMove method or perform any necessary action based on button click
-        MakeMove(x, y);
-        UpdateBoard();
-         
-        
-    }
-}
-    static class Button extends JButton {
-            private int x;
-            private int y;
-
-            public Button(int x, int y) {
-                this.x = x;
-                this.y = y;
-            }
-
-            public int getX() {
-                return x;
-            }
-
-            public int getY() {
-                return y;
-            }
-        }
+    static strategy strategy;
     
-
-    
-    
+    // create a frame with two buttons one for single player and one for multi-player
     static void frame1() {
-        JFrame frame = new JFrame("JFrame Example");
+        JFrame frame = new JFrame("tictactoe game by 3amooooor el amoooor");
         JPanel panel = new JPanel();
         panel.setLayout(null);
-        JButton button = new JButton("Start Game");
-        button.setBounds(300, 300, 100, 100);
+        // create a button for single player
+        JButton button = new JButton("Multi-Player Game");
+        button.setBounds(250, 200, 200, 100);
         panel.add(button);
+        // when the user clicks on the button the frame will be invisible and the game will start
         button.addActionListener(e -> {
             frame.setVisible(false);
-            frame2();
+            Multi_game = Multi_PlayerGame.getInstance();
+            Multi_game.Start();
         });
+        // create a button for multi-player
+        JButton button2 = new JButton("Single-Player Game");
+        button2.setBounds(250, 400, 200, 100);
+        panel.add(button2);
+        // when the user clicks on the button the frame will be invisible and the game will start
+        button2.addActionListener(e -> {
+            frame.setVisible(false);
+            frame2();
+
+        });
+
         frame.add(panel);
+        // set the frame size and location and close operation and visibility
         frame.setSize(700, 700);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
     }
-
-    public static void MakeMove(int x, int y) {
-        ticTacToe.Move(x, y);
-    }
-
-    static void UpdateBoard() {
-        Coordinates[][] board = ticTacToe.getBoard();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (board[i][j].getTurn() == TileState.X) {
-                    button[i][j].setIcon(x);
-                   
-                } else if (board[i][j].getTurn() == TileState.O) {
-                    button[i][j].setIcon(o);
-                }
-            }
-        }
-        
-        if (ticTacToe.getGameState() == GameState.x_WINS) {
-            JOptionPane.showMessageDialog(null, "X wins");
-            System.exit(0);
-        } else if (ticTacToe.getGameState() == GameState.O_WINS) {
-            JOptionPane.showMessageDialog(null, "O wins");
-            System.exit(0);
-        } else if (ticTacToe.getGameState() == GameState.DRAW) {
-            JOptionPane.showMessageDialog(null, "Draw");
-            System.exit(0);
-            
-        } 
-    }
-
+    
     static void frame2() {
-
-  
-        JFrame frame = new JFrame("Game");
+        JFrame frame = new JFrame("choose strategy");
         JPanel panel = new JPanel();
-        ButtonHandler buttonHandler = new ButtonHandler();
         panel.setLayout(null);
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                button[i][j] = new Button(i, j);
-                button[i][j].setBounds(200 * i, 200 * j, 200, 200);
-                panel.add(button[i][j]);
-                button[i][j].addActionListener(buttonHandler);
+        JButton button = new JButton("Easy");
+        button.setBounds(250, 100, 200, 100);
+        panel.add(button);
+        button.addActionListener(e -> {
+            frame.setVisible(false);
+        });
+        JButton button2 = new JButton("Medium");
+        button2.setBounds(250, 300, 200, 100);
+        panel.add(button2);
+        button2.addActionListener(e -> {
+            frame.setVisible(false);
+        });
 
-            }
-        }
-        
-        
+        JButton button3 = new JButton("Hard");
+        button3.setBounds(250, 500, 200, 100);
+        panel.add(button3);
+        button3.addActionListener(e -> {
+            frame.setVisible(false);
+        });
+
         frame.add(panel);
-        frame.setSize(600, 600);
+        frame.setSize(700, 700);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
+        
     }
 
+  
+
+   
+
     public static void main(String[] args) throws Exception {
-        o = new ImageIcon("rsc/O.png");
-        x = new ImageIcon("rsc/x.png");
-        o = new ImageIcon(o.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH));
-        x = new ImageIcon(x.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH));
+        
         frame1();
-        ticTacToe = TicTacToe.getInstance();
+       
 
     }
     

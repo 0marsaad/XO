@@ -16,12 +16,15 @@ public class SinglePlayerGame extends Game {
         this.strategy = strategy;
     }
 
-    static void getInstance(strategy strategy) {
+    static SinglePlayerGame getInstance(strategy strategy) {
         if (game == null) {
             game = new SinglePlayerGame(strategy);
         }
         game.strategy = strategy;
+        return game;
     }
+    
+    
     
         
     @Override
@@ -47,6 +50,9 @@ public class SinglePlayerGame extends Game {
         frame.setVisible(true);
     }
     
+    public strategy getStrategy() {
+        return strategy;
+    }
 
 
 }

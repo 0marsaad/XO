@@ -30,7 +30,8 @@ public abstract class Game {
         }
     }
 
-    static class ButtonHandler implements ActionListener {
+    class ButtonHandler implements ActionListener {
+
         public void actionPerformed(ActionEvent e) {
         Button clickedButton = (Button) e.getSource();
         int x = clickedButton.getX();
@@ -39,10 +40,18 @@ public abstract class Game {
         // Call the MakeMove method or perform any necessary action based on button click
         MakeMove(x, y);
         UpdateBoard();
+
+        if (Game.this instanceof SinglePlayerGame) {
+            Coordinates c;
+            c = ((SinglePlayerGame) Game.this).getStrategy().makeComputerMove(ticTacToe.getBoard());
+            MakeMove(c.getX(), c.getY());
+            UpdateBoard();
+        }
+        }
          
         
     }
-}
+
     abstract void Start();
 
     static protected void UpdateBoard() {

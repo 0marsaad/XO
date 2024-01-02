@@ -5,8 +5,7 @@ import javax.swing.JPanel;
 
 public class App extends JFrame {
 
-    static Multi_PlayerGame Multi_game;
-    static SinglePlayerGame Single_game;
+
 
     static strategy strategy;
     
@@ -22,8 +21,7 @@ public class App extends JFrame {
         // when the user clicks on the button the frame will be invisible and the game will start
         button.addActionListener(e -> {
             frame.setVisible(false);
-            Multi_game = Multi_PlayerGame.getInstance();
-            Multi_game.Start();
+            Multi_PlayerGame.getInstance().Start();
         });
         // create a button for multi-player
         JButton button2 = new JButton("Single-Player Game");
@@ -54,12 +52,15 @@ public class App extends JFrame {
         panel.add(button);
         button.addActionListener(e -> {
             frame.setVisible(false);
+            SinglePlayerGame.getInstance(new Easy()).Start();
+
         });
         JButton button2 = new JButton("Medium");
         button2.setBounds(250, 300, 200, 100);
         panel.add(button2);
         button2.addActionListener(e -> {
             frame.setVisible(false);
+            SinglePlayerGame.getInstance(new Medium()).Start();
         });
 
         JButton button3 = new JButton("Hard");

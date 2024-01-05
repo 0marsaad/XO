@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public abstract class Game {
@@ -11,6 +12,8 @@ public abstract class Game {
     static protected Button[][] button = new Button[3][3];
     static protected ImageIcon x;
     static protected ImageIcon o;
+    static protected JFrame frame = new JFrame("Game");
+
 
     static class Button extends JButton {
         private int x;
@@ -43,7 +46,7 @@ public abstract class Game {
 
         if (Game.this instanceof SinglePlayerGame) {
             Coordinates c;
-            c = ((SinglePlayerGame) Game.this).getStrategy().makeComputerMove(ticTacToe.getBoard());
+            c = ((SinglePlayerGame) Game.this).getStrategy().makeComputerMove(ticTacToe);
             MakeMove(c.getX(), c.getY());
             UpdateBoard();
         }
@@ -53,6 +56,14 @@ public abstract class Game {
     }
 
     abstract void Start();
+
+    protected Game() {
+        ticTacToe = TicTacToe.getInstance();
+        x = new ImageIcon("rsc/X.png");
+        o = new ImageIcon("rsc/O.png");
+        x = new ImageIcon(x.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH));
+        o = new ImageIcon(o.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH));
+    }
 
     static protected void UpdateBoard() {
         Coordinates[][] board = ticTacToe.getBoard();
@@ -67,17 +78,33 @@ public abstract class Game {
             }
         }
 
+        if (ticTacToe.getGameState() == GameState.CONTINUE) {
+            return;
+        }
+        String message = null;
+
         if (ticTacToe.getGameState() == GameState.x_WINS) {
-            JOptionPane.showMessageDialog(null, "X wins");
-            System.exit(0);
+            message = "X wins";
+           
         } else if (ticTacToe.getGameState() == GameState.O_WINS) {
-            JOptionPane.showMessageDialog(null, "O wins");
-            System.exit(0);
+            message = "O wins";
+
         } else if (ticTacToe.getGameState() == GameState.DRAW) {
-            JOptionPane.showMessageDialog(null, "Draw");
-            System.exit(0);
+            message = "Draw";
 
         }
+        int choice = JOptionPane.showOptionDialog(null, message + ", do you want to start again?","exit or continue", 
+                    JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+                    new String[] { "Continue", "Exit" }, "continue");
+        if (choice == JOptionPane.YES_OPTION) {
+                frame.setVisible(false);
+                new Frame_1();
+            } else if (choice == JOptionPane.NO_OPTION) {
+                System.exit(0);
+            }
+            else if (choice == JOptionPane.CLOSED_OPTION) {
+                System.exit(0);
+            }
     }
     
 

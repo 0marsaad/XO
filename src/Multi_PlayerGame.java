@@ -10,11 +10,7 @@ public class Multi_PlayerGame extends Game {
 
 //implementing singleton
 private Multi_PlayerGame() {
-    o = new ImageIcon("rsc/O.png");
-    x = new ImageIcon("rsc/x.png");
-    o = new ImageIcon(o.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH));
-    x = new ImageIcon(x.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH));
-    ticTacToe = TicTacToe.getInstance();
+    super();
 
 }
 
@@ -29,7 +25,6 @@ static public Multi_PlayerGame getInstance() {
 void Start() {
 
   
-    JFrame frame = new JFrame("Game");
     JPanel panel = new JPanel();
     ButtonHandler buttonHandler = new ButtonHandler();
     panel.setLayout(null);

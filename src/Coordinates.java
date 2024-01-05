@@ -18,11 +18,9 @@ public class Coordinates {
     }
     
     public void setTileState(TileState State) {
-        if (this.State == TileState.EMPTY) {
+        
             this.State = State;
-        } else {
-            throw new IllegalArgumentException("This tile is already taken");
-        }
+        
     }
 
     public TileState getTurn() {

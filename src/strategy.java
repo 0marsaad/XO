@@ -1,3 +1,3 @@
 public interface strategy {
-    Coordinates makeComputerMove(Coordinates board[][]);
+    Coordinates makeComputerMove(TicTacToe game);
 }

@@ -1,22 +1,23 @@
 public class TicTacToe {
-    private Coordinates[][] board = new Coordinates[3][3];
-    private GameState gameState;
-    static private TicTacToe ticTacToe;
-    static private Player currentPlayer;
-    private Player xPlayer = X_Player.getInstance();
-    private Player oPlayer = O_player.getInstance();
-//this class is a singleton class that represents the TicTacToe game
+    static protected Coordinates[][] board = new Coordinates[3][3];
+    protected GameState gameState;
+    static protected TicTacToe ticTacToe;
+    static protected Player currentPlayer;
+    protected Player xPlayer = X_Player.getInstance();
+    protected Player oPlayer = O_player.getInstance();
+
+    //this class is a singleton class that represents the TicTacToe game
 private TicTacToe() {
     // initialize the Backend board
-    for (int i = 0; i < board.length; i++) {
-        for (int j = 0; j < board[1].length; j++) {
-            board[i][j] = new Coordinates(i, j);
-        }
-    }
+
     gameState = GameState.CONTINUE;
     currentPlayer = xPlayer;
 }
 
+public Player getCurrentPlayer() {
+    return currentPlayer;
+}
+    
     public GameState getGameState() {
         return gameState;
     }
@@ -24,6 +25,11 @@ private TicTacToe() {
     public static TicTacToe getInstance() {
         if (ticTacToe == null) {
             ticTacToe = new TicTacToe();
+            for (int i = 0; i < board.length; i++) {
+                for (int j = 0; j < board[1].length; j++) {
+                    board[i][j] = new Coordinates(i, j);
+                }
+    }
         }
         return ticTacToe;
     }
@@ -33,7 +39,7 @@ private TicTacToe() {
     }
 
     // this method is used to update the state of the game
-    private void UpdateGameState() {
+    protected void UpdateGameState() {
 
         if (board[0][0].getTurn() == board[1][1].getTurn() && board[1][1].getTurn() == board[2][2].getTurn()
                 && board[0][0].getTurn() != TileState.EMPTY) {
@@ -113,6 +119,9 @@ private TicTacToe() {
     //make a move
     public void Move(int x, int y) {
         if (gameState == GameState.CONTINUE) {
+            if (board[x][y].getTurn() != TileState.EMPTY) {
+                throw new IllegalArgumentException("tile is already occupied");
+            }
             board[x][y].setTileState(currentPlayer.getTileState());
             UpdateGameState();
         } else {

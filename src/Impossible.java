@@ -1,11 +1,11 @@
-// this class is to check all the possible outcomes of a class and make the best move possible
+// this class is to check all the possible outcomes of yhe game and make the best move possible
 
 public class Impossible implements strategy{
 
     @Override
     public Coordinates makeComputerMove(TicTacToe game) {
         Coordinates[][] board = game.getBoard();
-        int bestScore = -1000;
+        int bestScore = -100;
         int best_x = 0;
         int best_y = 0;
         for(int i = 0; i < 3; i++){

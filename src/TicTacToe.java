@@ -37,6 +37,15 @@ public Player getCurrentPlayer() {
     public Coordinates[][] getBoard() {
         return board;
     }
+    
+    protected void restartGame() {
+        for (int i=0; i<3; i++)
+            for (int j=0; j<3; j++) {
+                board[i][j].setTileState(TileState.EMPTY);
+            }
+        gameState = GameState.CONTINUE;
+        currentPlayer = xPlayer;
+    }
 
     // this method is used to update the state of the game
     protected void UpdateGameState() {

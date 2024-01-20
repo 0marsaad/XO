@@ -6,7 +6,8 @@ public class Frame_2 extends JFrame {
     // create a frame with four buttons one for each strategy
     public Frame_2() {
         JFrame frame = new JFrame("choose strategy");
-        JPanel panel = new JPanel();
+        JPanel panel = new DifficultyMenu(frame);
+        /*JPanel panel = new JPanel();
         panel.setLayout(null);
         JButton button = new JButton("Easy");
         button.setBounds(250, 50, 200, 100);
@@ -38,11 +39,12 @@ public class Frame_2 extends JFrame {
         button4.addActionListener(e -> {
             frame.setVisible(false);
             SinglePlayerGame.getInstance(new Impossible()).Start();
-        });
+        });*/
 
 
         frame.add(panel);
-        frame.setSize(700, 800);
+        //frame.setSize(700, 800);
+        frame.setSize(600, 300);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);

@@ -10,7 +10,7 @@ public class GUI_Board extends JPanel {
         for (int i=0; i<3; i++)
             for (int j=0; j<3; j++) {
                 tiles[i][j] = new GUI_Tile();
-                tiles[i][j].setPreferredSize(Dimensions.BUTTON_SIZE);
+                tiles[i][j].setPreferredSize(Dimensions.TILE_SIZE);
             }
     }
 }

@@ -4,7 +4,7 @@
 public class App  {
     public static void main(String[] args) {
         
-        new Frame_1();
+        new GameFrame();
        
 
     }

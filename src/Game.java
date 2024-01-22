@@ -94,8 +94,8 @@ public abstract class Game {
         if (choice == JOptionPane.YES_OPTION) {
                 ticTacToe.restartGame();
                 UpdateBoard();
-                frame.setVisible(false);    // Isn't this a memory leak?
-                new Frame_1();
+                frame.setVisible(false);
+                new GameFrame();
             } else if (choice == JOptionPane.NO_OPTION || choice == JOptionPane.CLOSED_OPTION) {
                 System.exit(0);
             }

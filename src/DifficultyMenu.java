@@ -1,7 +1,6 @@
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -12,7 +11,7 @@ public class DifficultyMenu extends JPanel {
     private final JButton impossible;
     private final JLabel info;
     
-    public DifficultyMenu(JFrame f) {
+    public DifficultyMenu(GameFrame f) {
         this.setPreferredSize(Dimensions.WINDOW_SIZE);
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         JPanel buttons = new JPanel();
@@ -23,23 +22,19 @@ public class DifficultyMenu extends JPanel {
         impossible = new JButton("Impossible");
         info = new JLabel();
         easy.addActionListener(e -> {
-            f.setVisible(false);
-            SinglePlayerGame.getInstance(new Easy()).Start();});
+            f.startGame(SinglePlayerGame.getInstance(new Easy()));});
         easy.addMouseListener(new DifficultyTooltips(info, "CPU has no idea what it's doing. Can you even lose?"));
         easy.setPreferredSize(Dimensions.BUTTON_SIZE);
         medium.addActionListener(e -> {
-            f.setVisible(false);
-            SinglePlayerGame.getInstance(new Medium()).Start();});
+            f.startGame(SinglePlayerGame.getInstance(new Medium()));});
         medium.addMouseListener(new DifficultyTooltips(info, "CPU at least knows how to stop you from winning. Try to outsmart it."));
         medium.setPreferredSize(Dimensions.BUTTON_SIZE);
         hard.addActionListener(e -> {
-            f.setVisible(false);
-            SinglePlayerGame.getInstance(new Hard()).Start();});
+            f.startGame(SinglePlayerGame.getInstance(new Hard()));});
         hard.addMouseListener(new DifficultyTooltips(info, "CPU is smart and understands the strategy. Show it who's boss!"));
         hard.setPreferredSize(Dimensions.BUTTON_SIZE);
         impossible.addActionListener(e -> {
-            f.setVisible(false);
-            SinglePlayerGame.getInstance(new Impossible()).Start();});
+            f.startGame(SinglePlayerGame.getInstance(new Impossible()));});
         impossible.addMouseListener(new DifficultyTooltips(info, "\"You? Beating ME? I'd like to see you try!\"" ));
         impossible.setPreferredSize(Dimensions.BUTTON_SIZE);
         

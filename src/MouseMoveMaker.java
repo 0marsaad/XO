@@ -7,17 +7,19 @@ import javax.swing.border.Border;
 
 public class MouseMoveMaker implements MouseListener {
     private final GUI_Tile tile;
-    private final Border highlight;
-    private TicTacToe ticTacToe;
+    private static final Border validHighlight = BorderFactory.createLineBorder(Color.green), invalidHighlight = BorderFactory.createLineBorder(Color.red);;
+    private final TicTacToe ticTacToe;
     
     public MouseMoveMaker(GUI_Tile t) {
         tile = t;
-        highlight = BorderFactory.createLineBorder(Color.green);
+        ticTacToe = TicTacToe.getInstance();
     }
     
     @Override
     public void mouseClicked(MouseEvent e) {
-        ticTacToe.Move(0, 0);
+        if (tile.getState() == TileState.EMPTY)
+            tile.move();
+        tile.updateState(); // This is intentionally outside the if-statement
     }
 
     @Override
@@ -32,7 +34,10 @@ public class MouseMoveMaker implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        tile.setBorder(highlight);
+        if (tile.getState() == TileState.EMPTY)
+            tile.setBorder(validHighlight);
+        else
+            tile.setBorder(invalidHighlight);
     }
 
     @Override

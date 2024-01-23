@@ -28,20 +28,31 @@ public class GameFrame extends JFrame {
         this.setVisible(true);
         modes.setVisible(false);
         diffs.setVisible(true);
+        if (game != null)
+            game.setVisible(false);
         
     }
     protected void showModes() {
         this.setVisible(true);
         diffs.setVisible(false);
         modes.setVisible(true);
+        if (game != null)
+            game.setVisible(false);
     }
     
     public void startGame(Game g) {
-        this.setVisible(false);
+        if (game != null)
+            this.getContentPane().remove(game);
         game = g;
-        g.Start();
+        this.getContentPane().add(game);
+        modes.setVisible(false);
+        diffs.setVisible(false);
+        game.setVisible(true);
     }
     protected Game currentGame() {
         return game;
+    }
+    protected void makeMove(int x, int y) {
+        game.makeMove(x, y);
     }
 }

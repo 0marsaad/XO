@@ -8,8 +8,10 @@ import javax.swing.JPanel;
 public class ModeMenu extends JPanel {
     private final JButton single, multi;
     private final JLabel tooltips;
+    private GameFrame frame;
     
     public ModeMenu(GameFrame frame) {
+        this.frame = frame;
         this.setPreferredSize(Dimensions.WINDOW_SIZE);
         JPanel buttons = new JPanel();
         single = new JButton("Singleplayer");
@@ -21,7 +23,7 @@ public class ModeMenu extends JPanel {
         multi.setPreferredSize(Dimensions.BUTTON_SIZE_WIDE);
         multi.setAlignmentX(CENTER_ALIGNMENT);
         multi.addActionListener(e -> {
-            frame.startGame(Multi_PlayerGame.getInstance());});
+            frame.startGame(new MultiplayerGame(frame));});
         tooltips = new JLabel();
         tooltips.setPreferredSize(new java.awt.Dimension(600, 200));
         single.addMouseListener(new DifficultyTooltips(tooltips, "Play by yourself against a CPU-controlled opponent"));

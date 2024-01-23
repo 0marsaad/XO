@@ -7,6 +7,7 @@ public final class Dimensions {
     public static final Dimension TILE_SIZE = new Dimension(200, 200);
     public static final Dimension BUTTON_SIZE = new Dimension(120, 60);
     public static final Dimension BUTTON_SIZE_WIDE = new Dimension(220, 60);
+    public static final Dimension BUTTON_SIZE_LARGE = new Dimension(220, 120);
     
     private Dimensions() {
         // Do not instantiate

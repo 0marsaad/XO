@@ -1,110 +1,39 @@
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
-public abstract class Game {
-
-    static protected TicTacToe ticTacToe;
-    static protected Button[][] button = new Button[3][3];
-    static protected ImageIcon x;
-    static protected ImageIcon o;
-    static protected JFrame frame = new JFrame("Game");
-
-
-    static class Button extends JButton {
-        private int x;
-        private int y;
-
-        public Button(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
-        }
+public abstract class Game extends JPanel {
+    private GUI_Board board;
+    private GameFrame frame;
+    
+    public Game(GameFrame f) {
+        board = new GUI_Board(this);
+        frame = f;
+        this.setPreferredSize(Dimensions.WINDOW_SIZE);
+        this.add(board);
     }
-
-    class ButtonHandler implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-        Button clickedButton = (Button) e.getSource();
-        int x = clickedButton.getX();
-        int y = clickedButton.getY();
-
-        // Call the MakeMove method or perform any necessary action based on button click
-        MakeMove(x, y);
-        UpdateBoard();
-
-        if (Game.this instanceof SinglePlayerGame) {
-            Coordinates c;
-            c = ((SinglePlayerGame) Game.this).getStrategy().makeComputerMove(ticTacToe);
-            MakeMove(c.getX(), c.getY());
-            UpdateBoard();
-        }
-        }
-         
-        
-    }
-
-    abstract void Start();
-
-    protected Game() {
-        ticTacToe = TicTacToe.getInstance();
-        x = Images.X;
-        o = Images.O;
-    }
-
-    static protected void UpdateBoard() {
-        Coordinates[][] board = ticTacToe.getBoard();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                switch (board[i][j].getTurn()) {
-                    case X -> button[i][j].setIcon(x);
-                    case O -> button[i][j].setIcon(o);
-                    default -> button[i][j].setIcon(null);
-                }
+    
+    protected void makeMove(int x, int y) {
+        TicTacToe.getInstance().Move(x, y);
+        board.updateIcons();
+        GameState st = TicTacToe.getInstance().getGameState();
+        if (st != GameState.CONTINUE) {
+            String message = null;
+            ImageIcon icon = null;
+            switch (st) {
+                case x_WINS -> {message = "X wins!"; icon = Images.X;}
+                case O_WINS -> {message = "O wins!"; icon = Images.O;}
+                case DRAW -> {message = "Draw!";}
             }
-        }
-
-        if (ticTacToe.getGameState() == GameState.CONTINUE) {
-            return;
-        }
-        String message = null;
-
-        if (null != ticTacToe.getGameState())
-            switch (ticTacToe.getGameState()) {
-                case x_WINS -> message = "X wins";
-                case O_WINS -> message = "O wins";
-                case DRAW -> message = "Draw";
-                default -> {
-                }
-            }
-        int choice = JOptionPane.showOptionDialog(null, message + ", do you want to start again?","exit or continue", 
-                    JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
-                    new String[] { "Continue", "Exit" }, "continue");
-        if (choice == JOptionPane.YES_OPTION) {
-                ticTacToe.restartGame();
-                UpdateBoard();
-                frame.setVisible(false);
-                new GameFrame();
+            int choice = JOptionPane.showOptionDialog(null, message + " Play again?", message, JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, icon, new String[] { "Continue", "Exit" }, "continue");
+            if (choice == JOptionPane.YES_OPTION) {
+                TicTacToe.getInstance().restartGame();
+                board.updateIcons();
+                frame.showModes();
             } else if (choice == JOptionPane.NO_OPTION || choice == JOptionPane.CLOSED_OPTION) {
                 System.exit(0);
             }
+        }
     }
-    
-
-    static protected void MakeMove(int x, int y) {
-        ticTacToe.Move(x, y);
-    }
-
-
 }

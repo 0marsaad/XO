@@ -1,14 +1,23 @@
 
+import java.awt.Color;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.border.Border;
 
 public class GUI_Tile extends JLabel {
     private final Coordinates coordinates;
     private Game game;
+    private static final Border defaultBorder = BorderFactory.createLineBorder(Color.black, 3);
     
     public GUI_Tile(Game g, Coordinates c) {
-        game =g;
+        game = g;
         coordinates = c;
+        this.setBorder(defaultBorder);
         addMouseListener(new MouseMoveMaker(this));
+    }
+    
+    public void restoreBorder() {
+        this.setBorder(defaultBorder);
     }
     
     public int getXCoordinates() {

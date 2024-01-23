@@ -39,8 +39,8 @@ public Player getCurrentPlayer() {
     }
     
     protected void restartGame() {
-        for (int i=0; i<3; i++)
-            for (int j=0; j<3; j++) {
+        for (int i=0; i<board.length; i++)
+            for (int j=0; j<board[0].length; j++) {
                 board[i][j].setTileState(TileState.EMPTY);
             }
         gameState = GameState.CONTINUE;

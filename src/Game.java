@@ -22,8 +22,8 @@ public abstract class Game extends JPanel {
             String message = null;
             ImageIcon icon = null;
             switch (st) {
-                case x_WINS -> {message = "X wins!"; icon = Images.X;}
-                case O_WINS -> {message = "O wins!"; icon = Images.O;}
+                case x_WINS -> {message = "X wins!"; icon = Images.X_MINI;}
+                case O_WINS -> {message = "O wins!"; icon = Images.O_MINI;}
                 case DRAW -> {message = "Draw!";}
             }
             int choice = JOptionPane.showOptionDialog(null, message + " Play again?", message, JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, icon, new String[] { "Continue", "Exit" }, "continue");

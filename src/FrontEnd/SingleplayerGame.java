@@ -21,4 +21,15 @@ public class SingleplayerGame extends Game {
             super.makeMove(c.getX(), c.getY());
         }
     }
+    
+    @Override
+    protected void undoMove() {
+        super.undoMove();   // This makes it so it undoes/redoes both player and computer moves.
+        super.undoMove();
+    }
+    @Override
+    protected void redoMove() {
+        super.redoMove();
+        super.redoMove();
+    }
 }

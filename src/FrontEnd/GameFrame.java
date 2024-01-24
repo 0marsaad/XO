@@ -1,3 +1,4 @@
+package FrontEnd;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -54,5 +55,9 @@ public class GameFrame extends JFrame {
     }
     protected void makeMove(int x, int y) {
         game.makeMove(x, y);
+    }
+    
+    public static void main(String[] args) { 
+        new GameFrame();
     }
 }

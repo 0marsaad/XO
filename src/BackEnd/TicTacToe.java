@@ -1,22 +1,52 @@
+package BackEnd;
+
 public class TicTacToe {
-    static protected Coordinates[][] board = new Coordinates[3][3];
-    protected GameState gameState;
-    static protected TicTacToe ticTacToe;
-    static protected Player currentPlayer;
-    protected Player xPlayer = X_Player.getInstance();
-    protected Player oPlayer = O_player.getInstance();
+    static private Coordinates[][] board = new Coordinates[3][3];
+    private GameState gameState;
+    static private TicTacToe ticTacToe;
+    static private Player currentPlayer;
+    private Player xPlayer = X_Player.getInstance();
+    private Player oPlayer = O_player.getInstance();
 
     //this class is a singleton class that represents the TicTacToe game
-private TicTacToe() {
+    private TicTacToe() {
     // initialize the Backend board
 
     gameState = GameState.CONTINUE;
     currentPlayer = xPlayer;
 }
 
-public Player getCurrentPlayer() {
-    return currentPlayer;
-}
+    public class MementoTicTacToe {
+        private final Coordinates[][] memBoard;
+    
+        private MementoTicTacToe(Coordinates[][] b) {
+            memBoard = new Coordinates[3][3];
+            for (int i=0; i<3; i++)
+                for (int j=0; j<3; j++) {
+                    memBoard[i][j] = new Coordinates(b[i][j].getX(), b[i][j].getY());
+                    memBoard[i][j].setTileState(b[i][j].getTurn());
+                }
+        }
+        private Coordinates[][] getBoard() {
+            return memBoard;
+        }
+    }
+
+    public MementoTicTacToe saveMemento() {
+        return new MementoTicTacToe(board);
+    }
+    public void restoreFromMemento(MementoTicTacToe m) {
+        Coordinates[][] mem = m.getBoard();
+        for (int i=0; i<3; i++)
+            for (int j=0; j<3; j++) {
+                board[i][j].setTileState(mem[i][j].getTurn());
+            }
+        UpdateGameState();
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
     
     public GameState getGameState() {
         return gameState;
@@ -38,7 +68,7 @@ public Player getCurrentPlayer() {
         return board;
     }
     
-    protected void restartGame() {
+    public void restartGame() {
         for (int i=0; i<board.length; i++)
             for (int j=0; j<board[0].length; j++) {
                 board[i][j].setTileState(TileState.EMPTY);
@@ -126,13 +156,14 @@ public Player getCurrentPlayer() {
         
     }
     //make a move
-    public void Move(int x, int y) {
+    public boolean Move(int x, int y) {
         if (gameState == GameState.CONTINUE) {
             if (board[x][y].getTurn() != TileState.EMPTY) {
                 throw new IllegalArgumentException("tile is already occupied");
             }
             board[x][y].setTileState(currentPlayer.getTileState());
             UpdateGameState();
+            return true;
         } else {
             throw new IllegalArgumentException("Game is over");
         }

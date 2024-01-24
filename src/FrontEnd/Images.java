@@ -1,3 +1,4 @@
+package FrontEnd;
 
 import javax.swing.ImageIcon;
 

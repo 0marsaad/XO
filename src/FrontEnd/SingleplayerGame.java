@@ -1,3 +1,9 @@
+package FrontEnd;
+
+import BackEnd.Coordinates;
+import BackEnd.GameState;
+import BackEnd.TicTacToe;
+import BackEnd.strategy;
 
 public class SingleplayerGame extends Game {
     private strategy difficulty;

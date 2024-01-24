@@ -1,3 +1,4 @@
+package FrontEnd;
 
 public class MultiplayerGame extends Game {
     

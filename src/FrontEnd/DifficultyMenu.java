@@ -1,4 +1,9 @@
+package FrontEnd;
 
+import BackEnd.Easy;
+import BackEnd.Medium;
+import BackEnd.Hard;
+import BackEnd.Impossible;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;

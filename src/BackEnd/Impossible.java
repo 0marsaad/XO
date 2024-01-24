@@ -1,3 +1,5 @@
+package BackEnd;
+
 // this class is to check all the possible outcomes of yhe game and make the best move possible
 
 public class Impossible implements strategy{

@@ -1,4 +1,7 @@
+package FrontEnd;
 
+import BackEnd.Coordinates;
+import BackEnd.TicTacToe;
 import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
@@ -10,6 +13,7 @@ public class GUI_Board extends JPanel {
     public GUI_Board(Game g){
         game = g;
         this.setBackground(Color.white);
+        this.setPreferredSize(Dimensions.BOARD_SIZE);
         this.setLayout(new GridLayout(3,3));
         tiles = new GUI_Tile[3][3];
         Coordinates[][] coor = TicTacToe.getInstance().getBoard();

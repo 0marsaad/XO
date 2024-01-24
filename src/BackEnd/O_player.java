@@ -1,3 +1,5 @@
+package BackEnd;
+
 //this class is a singleton class that represents the O player
 
 public class O_player extends Player {

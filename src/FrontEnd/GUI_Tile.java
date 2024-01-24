@@ -1,4 +1,7 @@
+package FrontEnd;
 
+import BackEnd.Coordinates;
+import BackEnd.TileState;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;

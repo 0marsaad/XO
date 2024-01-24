@@ -35,6 +35,7 @@ public class TicTacToe {
     public MementoTicTacToe saveMemento() {
         return new MementoTicTacToe(board);
     }
+
     public void restoreFromMemento(MementoTicTacToe m) {
         Coordinates[][] mem = m.getBoard();
         for (int i=0; i<3; i++)
@@ -159,14 +160,14 @@ public class TicTacToe {
     public boolean Move(int x, int y) {
         if (gameState == GameState.CONTINUE) {
             if (board[x][y].getTurn() != TileState.EMPTY) {
-                throw new IllegalArgumentException("tile is already occupied");
+                return false;
             }
             board[x][y].setTileState(currentPlayer.getTileState());
             UpdateGameState();
             return true;
-        } else {
-            throw new IllegalArgumentException("Game is over");
         }
+            return false;
+        
     }
 
 }

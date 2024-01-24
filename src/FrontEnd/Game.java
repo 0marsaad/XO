@@ -39,7 +39,7 @@ public abstract class Game extends JPanel {
             board.updateIcons();
         }
     }
-    protected void makeMove(int x, int y) {
+    protected boolean makeMove(int x, int y) {
         MementoTicTacToe mem = TicTacToe.getInstance().saveMemento();
         boolean b = TicTacToe.getInstance().Move(x, y);
         if (b == true) {
@@ -55,6 +55,7 @@ public abstract class Game extends JPanel {
                 case x_WINS -> {message = "X wins!"; icon = Images.X_MINI;}
                 case O_WINS -> {message = "O wins!"; icon = Images.O_MINI;}
                 case DRAW -> {message = "Draw!";}
+                default -> throw new IllegalArgumentException("Unexpected value: " + st);
             }
             int choice = JOptionPane.showOptionDialog(null, message + " Play again?", message, JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, icon, new String[] { "Continue", "Exit" }, "continue");
             if (choice == JOptionPane.YES_OPTION) {
@@ -64,6 +65,8 @@ public abstract class Game extends JPanel {
             } else if (choice == JOptionPane.NO_OPTION || choice == JOptionPane.CLOSED_OPTION) {
                 System.exit(0);
             }
+            return true;
         }
+        return false;
     }
 }

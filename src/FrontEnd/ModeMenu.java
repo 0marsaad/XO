@@ -11,8 +11,8 @@ public class ModeMenu extends JPanel {
     private final JLabel tooltips;
     private GameFrame frame;
     
-    public ModeMenu(GameFrame frame) {
-        this.frame = frame;
+    public ModeMenu(GameFrame gameFrame) {
+        this.frame = gameFrame;
         this.setPreferredSize(Dimensions.WINDOW_SIZE);
         JPanel buttons = new JPanel();
         single = new JButton("Singleplayer");

@@ -14,12 +14,13 @@ public class SingleplayerGame extends Game {
     }
     
     @Override
-    protected void makeMove(int x, int y) {
-        super.makeMove(x, y);
-        if (TicTacToe.getInstance().getGameState() == GameState.CONTINUE) {
+    protected boolean makeMove(int x, int y) {
+        boolean ended = super.makeMove(x, y);
+        if (!ended) {
             Coordinates c = difficulty.makeComputerMove(TicTacToe.getInstance());
-            super.makeMove(c.getX(), c.getY());
+            ended = super.makeMove(c.getX(), c.getY());
         }
+        return ended;
     }
     
     @Override

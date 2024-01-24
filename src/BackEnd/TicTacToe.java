@@ -16,34 +16,6 @@ public class TicTacToe {
     currentPlayer = xPlayer;
 }
 
-    public class MementoTicTacToe {
-        private final Coordinates[][] memBoard;
-    
-        private MementoTicTacToe(Coordinates[][] b) {
-            memBoard = new Coordinates[3][3];
-            for (int i=0; i<3; i++)
-                for (int j=0; j<3; j++) {
-                    memBoard[i][j] = new Coordinates(b[i][j].getX(), b[i][j].getY());
-                    memBoard[i][j].setTileState(b[i][j].getTurn());
-                }
-        }
-        private Coordinates[][] getBoard() {
-            return memBoard;
-        }
-    }
-
-    public MementoTicTacToe saveMemento() {
-        return new MementoTicTacToe(board);
-    }
-
-    public void restoreFromMemento(MementoTicTacToe m) {
-        Coordinates[][] mem = m.getBoard();
-        for (int i=0; i<3; i++)
-            for (int j=0; j<3; j++) {
-                board[i][j].setTileState(mem[i][j].getTurn());
-            }
-        UpdateGameState();
-    }
 
     public Player getCurrentPlayer() {
         return currentPlayer;
@@ -165,9 +137,39 @@ public class TicTacToe {
             board[x][y].setTileState(currentPlayer.getTileState());
             UpdateGameState();
             return true;
-        }
-            return false;
-        
+        }   // Returns move VALIDITY
+        return false;
+
     }
+    
+    public class MementoTicTacToe {
+        private final Coordinates[][] memBoard;
+    
+        private MementoTicTacToe(Coordinates[][] b) {
+            memBoard = new Coordinates[3][3];
+            for (int i=0; i<3; i++)
+                for (int j=0; j<3; j++) {
+                    memBoard[i][j] = new Coordinates(b[i][j].getX(), b[i][j].getY());
+                    memBoard[i][j].setTileState(b[i][j].getTurn());
+                }
+        }
+        private Coordinates[][] getBoard() {
+            return memBoard;
+        }
+    }
+    public MementoTicTacToe saveMemento() {
+        return new MementoTicTacToe(board);
+    }
+
+    public void restoreFromMemento(MementoTicTacToe m) {
+        Coordinates[][] mem = m.getBoard();
+        for (int i=0; i<3; i++)
+            for (int j=0; j<3; j++) {
+                board[i][j].setTileState(mem[i][j].getTurn());
+            }
+        UpdateGameState();
+    }
+
+ 
 
 }

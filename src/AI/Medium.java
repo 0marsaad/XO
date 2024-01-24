@@ -1,7 +1,11 @@
-package BackEnd;
+package AI;
+
+import BackEnd.Coordinates;
+import BackEnd.TicTacToe;
+import BackEnd.TileState;
 
 //only defensive strategies are implemented
-public class Medium implements strategy  {
+public class Medium implements Strategy  {
 
     @Override
     public Coordinates makeComputerMove(TicTacToe game) {

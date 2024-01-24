@@ -1,8 +1,12 @@
-package BackEnd;
+package AI;
+
+import BackEnd.Coordinates;
+import BackEnd.TicTacToe;
+import BackEnd.TileState;
 
 // both attacking and defensive strategies are implemented in this class
 
-public class Hard implements strategy {
+public class Hard implements Strategy {
 
     @Override
     public Coordinates makeComputerMove(TicTacToe game) {

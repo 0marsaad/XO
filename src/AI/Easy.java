@@ -1,8 +1,12 @@
-package BackEnd;
+package AI;
+
+import BackEnd.Coordinates;
+import BackEnd.TicTacToe;
+import BackEnd.TileState;
 
 //plays randomly
 
-public class Easy implements strategy {
+public class Easy implements Strategy {
 
 
     @Override

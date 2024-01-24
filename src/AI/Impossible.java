@@ -1,8 +1,12 @@
-package BackEnd;
+package AI;
+
+import BackEnd.Coordinates;
+import BackEnd.TicTacToe;
+import BackEnd.TileState;
 
 // this class is to check all the possible outcomes of yhe game and make the best move possible
 
-public class Impossible implements strategy{
+public class Impossible implements Strategy{
 
     @Override
     public Coordinates makeComputerMove(TicTacToe game) {

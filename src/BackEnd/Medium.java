@@ -1,3 +1,4 @@
+package BackEnd;
 
 //only defensive strategies are implemented
 public class Medium implements strategy  {

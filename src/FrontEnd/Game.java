@@ -28,18 +28,26 @@ public abstract class Game extends JPanel {
     public void updateBoard() {
         board.updateIcons();
     }
+    public GUI_Tile getTileAt(int x, int y) {
+        return board.getTileAt(x,y);
+    }
 
     public void undoMove() {
-        backend.undoMove();
+        backend.undoMove(this);
         board.updateIcons();
     }
     public void redoMove() {
-        backend.redoMove();
+        backend.redoMove(this);
         board.updateIcons();
     }
 
     public boolean makeMove(int x, int y) {
-        boolean ended = backend.makeMove(x, y);
+        GUI_Tile t = board.getTileAt(x, y);
+        return makeMove(t);
+    }
+
+    public boolean makeMove(GUI_Tile t) {
+        boolean ended = backend.makeMove(t);
         board.updateIcons();
         GameState st = backend.getGameState();
         if (st != GameState.CONTINUE) {

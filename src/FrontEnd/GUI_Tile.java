@@ -1,12 +1,13 @@
 package FrontEnd;
 
-import BackEnd.TileState;
+
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
 public class GUI_Tile extends JLabel {
+    private TileState state;
     private final int x;
     private final int y;
     private Game game;
@@ -16,6 +17,7 @@ public class GUI_Tile extends JLabel {
         game = g;
         this.x = x;
         this.y = y;
+        this.state = new EmptyState(this);
         this.setBorder(defaultBorder);
         addMouseListener(new MouseMoveMaker(this));
     }
@@ -32,7 +34,7 @@ public class GUI_Tile extends JLabel {
     }
     
     public TileState getState() {
-        return game.getBackend().getStateOf(this);
+        return state;
     }
     
     protected void move() {
@@ -40,15 +42,15 @@ public class GUI_Tile extends JLabel {
     }
     
     public void updateState() {
-        switch (getState()) {
-            case X -> this.setIcon(Images.X);
-            case O -> this.setIcon(Images.O);
-            default -> this.setIcon(null);
-        }
+        this.setIcon(state.getImage());
     }
+
     
     public void setState(TileState t) {
-        game.getBackend().setTileStateOf(this, t);
-        updateState();
+        if (t != null && !(t.equals(state))) {   // Idempotency. Do nothing if already in that state.
+            state = t;
+            //game.getBackend().setTileStatesOf(this, t);
+            updateState();
+        }
     }
 }

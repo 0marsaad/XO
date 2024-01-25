@@ -2,7 +2,7 @@ package AI;
 
 import BackEnd.Coordinates;
 import BackEnd.TicTacToe;
-import BackEnd.TileState;
+import BackEnd.TileStates;
 
 // this class is to check all the possible outcomes of yhe game and make the best move possible
 
@@ -16,10 +16,10 @@ public class Impossible implements Strategy{
         int best_y = 0;
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
-                if(board[i][j].getTurn() == TileState.EMPTY){
-                    board[i][j].setTileState(TileState.O);
+                if(board[i][j].getTurn() == TileStates.EMPTY){
+                    board[i][j].setTileState(TileStates.O);
                     int score = checkAllStates(board,  false);
-                    board[i][j].setTileState(TileState.EMPTY);
+                    board[i][j].setTileState(TileStates.EMPTY);
                     if(score > bestScore){
                         bestScore = score;
                         best_x = i;
@@ -32,8 +32,8 @@ public class Impossible implements Strategy{
     }
 
     public int checkAllStates(Coordinates[][] board, boolean Winning_for_computer) {
-        TileState computer = TileState.O;
-        TileState player = TileState.X;
+        TileStates computer = TileStates.O;
+        TileStates player = TileStates.X;
 
         if (checkWin(board, computer)) {
             return 1;
@@ -47,10 +47,10 @@ public class Impossible implements Strategy{
             int bestScore = -10;
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    if (board[i][j].getTurn() == TileState.EMPTY) {
-                        board[i][j].setTileState(TileState.O);
+                    if (board[i][j].getTurn() == TileStates.EMPTY) {
+                        board[i][j].setTileState(TileStates.O);
                         int score = checkAllStates(board, false);
-                        board[i][j].setTileState(TileState.EMPTY);
+                        board[i][j].setTileState(TileStates.EMPTY);
                         if (score > bestScore) {
                             bestScore = score;
                         }
@@ -62,10 +62,10 @@ public class Impossible implements Strategy{
             int bestScore = 10;
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    if (board[i][j].getTurn() == TileState.EMPTY) {
-                        board[i][j].setTileState(TileState.X);
+                    if (board[i][j].getTurn() == TileStates.EMPTY) {
+                        board[i][j].setTileState(TileStates.X);
                         int score = checkAllStates(board, true);
-                        board[i][j].setTileState(TileState.EMPTY);
+                        board[i][j].setTileState(TileStates.EMPTY);
                         if (score < bestScore) {
                             bestScore = score;
                         }
@@ -79,17 +79,17 @@ public class Impossible implements Strategy{
     
     public Boolean checkTie(Coordinates[][] board) {
         for (int i = 0; i < 3; i++) {
-            if (board[i][0].getTurn() == TileState.EMPTY || board[i][1].getTurn() == TileState.EMPTY
-                    || board[i][2].getTurn() == TileState.EMPTY) {
+            if (board[i][0].getTurn() == TileStates.EMPTY || board[i][1].getTurn() == TileStates.EMPTY
+                    || board[i][2].getTurn() == TileStates.EMPTY) {
                 return false;
             }
         }
         return true;
     }
     
-    Boolean checkWin(Coordinates[][] board, TileState player) {
+    Boolean checkWin(Coordinates[][] board, TileStates player) {
         if (board[0][0].getTurn() == board[1][1].getTurn() && board[1][1].getTurn() == board[2][2].getTurn()
-                && board[0][0].getTurn() != TileState.EMPTY) {
+                && board[0][0].getTurn() != TileStates.EMPTY) {
             if (board[0][0].getTurn() == player) {
                 return true;
             } else {
@@ -98,7 +98,7 @@ public class Impossible implements Strategy{
         }
             
         if(board[2][0].getTurn() == board[1][1].getTurn() && board[1][1].getTurn() == board[0][2].getTurn()
-                && board[2][0].getTurn() != TileState.EMPTY) {
+                && board[2][0].getTurn() != TileStates.EMPTY) {
             if (board[2][0].getTurn() == player) {
                 return true;
             } else {
@@ -108,7 +108,7 @@ public class Impossible implements Strategy{
         
         for (int i = 0; i < 3; i++) {
             if (board[i][0].getTurn() == board[i][1].getTurn() && board[i][1].getTurn() == board[i][2].getTurn()
-                    && board[i][0].getTurn() != TileState.EMPTY) {
+                    && board[i][0].getTurn() != TileStates.EMPTY) {
                 if (board[i][0].getTurn() == player) {
                     return true;
                 } else {
@@ -119,7 +119,7 @@ public class Impossible implements Strategy{
 
         for (int i = 0; i < 3; i++) {
             if (board[0][i].getTurn() == board[1][i].getTurn() && board[1][i].getTurn() == board[2][i].getTurn()
-                    && board[0][i].getTurn() != TileState.EMPTY) {
+                    && board[0][i].getTurn() != TileStates.EMPTY) {
                 if (board[0][i].getTurn() == player) {
                     return true;
                 } else {

@@ -12,9 +12,13 @@ public class SingleplayerGame extends Game {
     
     @Override
     public boolean makeMove(int x, int y) {
-        boolean ended = super.makeMove(x, y);
+        return makeMove(super.getTileAt(x, y));
+    }
+    @Override
+    public boolean makeMove(GUI_Tile t) {
+        boolean ended = super.makeMove(t);
         if (!ended) {
-            ended = super.getBackend().makeCPUMove(difficulty);
+            ended = super.getBackend().makeCPUMove(difficulty, this);
             super.updateBoard();
         }
         return ended;

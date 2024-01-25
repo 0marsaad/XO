@@ -2,7 +2,7 @@ package AI;
 
 import BackEnd.Coordinates;
 import BackEnd.TicTacToe;
-import BackEnd.TileState;
+import BackEnd.TileStates;
 
 //plays randomly
 
@@ -15,7 +15,7 @@ public class Easy implements Strategy {
         do {
             x = (int) (Math.random() * 3);
             y = (int) (Math.random() * 3);
-        } while (game.getBoard()[x][y].getTurn() != TileState.EMPTY);
+        } while (game.getBoard()[x][y].getTurn() != TileStates.EMPTY);
         
         Coordinates move = new Coordinates(x, y);
         return move;

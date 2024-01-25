@@ -1,10 +1,10 @@
 package BackEnd;
 
 public class Player {
-    protected TileState tileState;
+    protected TileStates tileState;
     
 
-    public TileState getTileState() {
+    public TileStates getTileState() {
         return tileState;
     }
 }

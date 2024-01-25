@@ -22,6 +22,10 @@ public class GUI_Board extends JPanel {
                 this.add(tiles[i][j]);
             }
     }
+
+    public GUI_Tile getTileAt(int x, int y) {
+        return tiles[x][y];
+    }
     
     public void updateIcons() {
         for (int i=0; i<3; i++)

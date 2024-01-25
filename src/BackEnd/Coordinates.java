@@ -3,12 +3,12 @@ package BackEnd;
 public class Coordinates {
     private int x;
     private int y;
-    private TileState State;
+    private TileStates State;
 
     public Coordinates(int x, int y ) {
         this.x = x;
         this.y = y;
-        this.State = TileState.EMPTY;
+        this.State = TileStates.EMPTY;
     }
 
     public int getX() {
@@ -19,13 +19,13 @@ public class Coordinates {
         return y;
     }
     
-    public void setTileState(TileState State) {
+    public void setTileState(TileStates State) {
         
             this.State = State;
         
     }
 
-    public TileState getTurn() {
+    public TileStates getTurn() {
         return State;
     }
 

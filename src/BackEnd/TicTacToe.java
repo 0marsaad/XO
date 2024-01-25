@@ -24,7 +24,7 @@ public class TicTacToe {
     public GameState getGameState() {
         return gameState;
     }
-
+// implements singleton
     public static TicTacToe getInstance() {
         if (ticTacToe == null) {
             ticTacToe = new TicTacToe();

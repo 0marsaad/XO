@@ -47,7 +47,7 @@ public class BackendPortal {
                 for (int j=0; j<board[0].length; j++) {
                     GUI_Tile t = g.getTileAt(i, j);
                     switch (board[i][j].getTurn()) {
-                        case X -> {t.setState(new X_state(t));}
+                        case X -> {t.setState(new X_State(t));}
                         case O -> {t.setState(new O_State(t));}
                         case EMPTY -> {t.setState(new EmptyState(t));}
                         default -> {
@@ -77,7 +77,7 @@ public class BackendPortal {
         MementoTicTacToe mem = TicTacToe.getInstance().saveMemento();
         boolean b = TicTacToe.getInstance().Move(x, y);
         switch((backendGame.getBoard())[x][y].getTurn()) {
-            case X -> {t.setState(new X_state(t));}
+            case X -> {t.setState(new X_State(t));}
             case O -> {t.setState(new O_State(t));}
             case EMPTY -> {t.setState(new EmptyState(t));}
             default -> {

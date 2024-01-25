@@ -9,7 +9,7 @@ public abstract class TileState {
         contextTile = t;
     }
 
-    GUI_Tile getTile() {
+    protected GUI_Tile getTile() {
         return contextTile;
     }
 

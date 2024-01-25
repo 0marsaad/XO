@@ -8,8 +8,9 @@ public class GameFrame extends JFrame {
     private JPanel modes;
     private JPanel diffs;
     private Game game;
+    private static GameFrame instance;
     
-    public GameFrame() {
+    private GameFrame() {
         modes = new ModeMenu(this);
         diffs = new DifficultyMenu(this);
         this.setPreferredSize(Dimensions.WINDOW_SIZE);
@@ -23,6 +24,12 @@ public class GameFrame extends JFrame {
         pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+     // Implements Singleton pattern
+    public static GameFrame getInstance() {
+        if (instance == null)
+            instance = new GameFrame();
+        return instance;
     }
     
     protected void showDifficulties() {
@@ -58,6 +65,6 @@ public class GameFrame extends JFrame {
     }
     
     public static void main(String[] args) { 
-        new GameFrame();
+        GameFrame.getInstance();
     }
 }

@@ -2,10 +2,10 @@ package FrontEnd;
 
 import javax.swing.ImageIcon;
 
-public class X_state extends TileState {
+public class X_State extends TileState {
     private static final ImageIcon image = Images.X;
 
-    public X_state(GUI_Tile t) {
+    public X_State(GUI_Tile t) {
         super(t);
     }
 

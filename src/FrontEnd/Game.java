@@ -49,12 +49,17 @@ public abstract class Game extends JPanel {
     public boolean makeMove(GUI_Tile t) {
         boolean ended = backend.makeMove(t);
         board.updateIcons();
+        displayEndInfo();
+        return ended;
+    }
+    
+    public void displayEndInfo() {
         GameState st = backend.getGameState();
         if (st != GameState.CONTINUE) {
             String message = null;
             ImageIcon icon = null;
             switch (st) {
-                case x_WINS -> {message = "X wins!"; icon = Images.X_MINI;}
+                case X_WINS -> {message = "X wins!"; icon = Images.X_MINI;}
                 case O_WINS -> {message = "O wins!"; icon = Images.O_MINI;}
                 case DRAW -> {message = "Draw!";}
                 default -> throw new IllegalArgumentException("Unexpected value: " + st);
@@ -68,6 +73,5 @@ public abstract class Game extends JPanel {
                 System.exit(0);
             }
         }
-        return ended;
     }
 }

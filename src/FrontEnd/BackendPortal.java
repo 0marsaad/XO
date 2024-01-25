@@ -5,10 +5,9 @@ import BackEnd.TicTacToe;
 import BackEnd.TicTacToe.MementoTicTacToe;
 import BackEnd.TileStates;
 import BackEnd.GameState;
-
 import java.util.Stack;
-
 import AI.*;
+
 // implements facade pattern
 public class BackendPortal {
     private TicTacToe backendGame;
@@ -75,7 +74,7 @@ public class BackendPortal {
         int x = t.getXCoordinates();
         int y = t.getYCoordinates();
         MementoTicTacToe mem = TicTacToe.getInstance().saveMemento();
-        boolean b = TicTacToe.getInstance().Move(x, y);
+        boolean b = TicTacToe.getInstance().move(x, y);
         switch((backendGame.getBoard())[x][y].getTurn()) {
             case X -> {t.setState(new X_State(t));}
             case O -> {t.setState(new O_State(t));}
@@ -93,6 +92,8 @@ public class BackendPortal {
     protected boolean makeCPUMove(Strategy s, Game g) {
         Coordinates c = s.makeComputerMove(backendGame);
         GUI_Tile t = g.getTileAt(c.getX(), c.getY());
-        return makeMove(t);
+        boolean b = makeMove(t);
+        g.displayEndInfo();
+        return b;
     }
 }

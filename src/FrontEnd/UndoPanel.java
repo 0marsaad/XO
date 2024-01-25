@@ -9,7 +9,7 @@ public class UndoPanel extends JPanel {
     private final JButton undo, redo;
     
     public UndoPanel (Game g) {
-        setPreferredSize(new java.awt.Dimension(600, 100));
+        setPreferredSize(new java.awt.Dimension(600, 60));
         setLayout(new BorderLayout());
         undo = new JButton("Undo");
         undo.setPreferredSize(Dimensions.BUTTON_SIZE_WIDE);

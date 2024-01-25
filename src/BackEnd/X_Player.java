@@ -5,7 +5,7 @@ public class X_Player extends Player {
     private static X_Player xPlayer;
     
     private X_Player() {
-        tileState = TileState.X;
+        tileState = TileStates.X;
     }
 
     public static X_Player getInstance() {

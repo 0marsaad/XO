@@ -6,7 +6,7 @@ public class O_player extends Player {
     private static O_player oPlayer;
 
     private O_player() {
-        tileState = TileState.O;
+        tileState = TileStates.O;
     }
     //implements singleton
     public static O_player getInstance() {

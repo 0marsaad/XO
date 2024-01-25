@@ -16,33 +16,6 @@ public class TicTacToe {
     currentPlayer = xPlayer;
 }
 
-    public class MementoTicTacToe {
-        private final Coordinates[][] memBoard;
-    
-        private MementoTicTacToe(Coordinates[][] b) {
-            memBoard = new Coordinates[3][3];
-            for (int i=0; i<3; i++)
-                for (int j=0; j<3; j++) {
-                    memBoard[i][j] = new Coordinates(b[i][j].getX(), b[i][j].getY());
-                    memBoard[i][j].setTileState(b[i][j].getTurn());
-                }
-        }
-        private Coordinates[][] getBoard() {
-            return memBoard;
-        }
-    }
-
-    public MementoTicTacToe saveMemento() {
-        return new MementoTicTacToe(board);
-    }
-    public void restoreFromMemento(MementoTicTacToe m) {
-        Coordinates[][] mem = m.getBoard();
-        for (int i=0; i<3; i++)
-            for (int j=0; j<3; j++) {
-                board[i][j].setTileState(mem[i][j].getTurn());
-            }
-        UpdateGameState();
-    }
 
     public Player getCurrentPlayer() {
         return currentPlayer;
@@ -71,7 +44,7 @@ public class TicTacToe {
     public void restartGame() {
         for (int i=0; i<board.length; i++)
             for (int j=0; j<board[0].length; j++) {
-                board[i][j].setTileState(TileState.EMPTY);
+                board[i][j].setTileState(TileStates.EMPTY);
             }
         gameState = GameState.CONTINUE;
         currentPlayer = xPlayer;
@@ -81,22 +54,22 @@ public class TicTacToe {
     protected void UpdateGameState() {
 
         if (board[0][0].getTurn() == board[1][1].getTurn() && board[1][1].getTurn() == board[2][2].getTurn()
-                && board[0][0].getTurn() != TileState.EMPTY) {
-            if (board[0][0].getTurn() == TileState.X) {
+                && board[0][0].getTurn() != TileStates.EMPTY) {
+            if (board[0][0].getTurn() == TileStates.X) {
                 gameState = GameState.x_WINS;
                 return;
-            } else if (board[0][0].getTurn() == TileState.O) {
+            } else if (board[0][0].getTurn() == TileStates.O) {
                 gameState = GameState.O_WINS;
                 return;
             }
         }
             
         if(board[2][0].getTurn() == board[1][1].getTurn() && board[1][1].getTurn() == board[0][2].getTurn()
-                && board[2][0].getTurn() != TileState.EMPTY) {
-            if (board[2][0].getTurn() == TileState.X) {
+                && board[2][0].getTurn() != TileStates.EMPTY) {
+            if (board[2][0].getTurn() == TileStates.X) {
                 gameState = GameState.x_WINS;
                 return;
-            } else if (board[2][0].getTurn() == TileState.O) {
+            } else if (board[2][0].getTurn() == TileStates.O) {
                 gameState = GameState.O_WINS;
                 return;
             }
@@ -104,10 +77,10 @@ public class TicTacToe {
 
 
         if (board[0][2].getTurn() == board[1][1].getTurn() && board[1][1].getTurn() == board[2][0].getTurn()) {
-            if (board[0][2].getTurn() == TileState.X) {
+            if (board[0][2].getTurn() == TileStates.X) {
                 gameState = GameState.x_WINS;
                 return;
-            } else if (board[0][2].getTurn() == TileState.O) {
+            } else if (board[0][2].getTurn() == TileStates.O) {
                 gameState = GameState.O_WINS;
                 return;
             }
@@ -115,22 +88,22 @@ public class TicTacToe {
 
         for (int i = 0; i < 3; i++) {
             if (board[i][0].getTurn() == board[i][1].getTurn() && board[i][1].getTurn() == board[i][2].getTurn()
-                    && board[i][0].getTurn() != TileState.EMPTY) {
-                if (board[i][0].getTurn() == TileState.X) {
+                    && board[i][0].getTurn() != TileStates.EMPTY) {
+                if (board[i][0].getTurn() == TileStates.X) {
                     gameState = GameState.x_WINS;
                     return;
-                } else if (board[i][0].getTurn() == TileState.O) {
+                } else if (board[i][0].getTurn() == TileStates.O) {
                     gameState = GameState.O_WINS;
                     return;
                 }
             }
 
             if (board[0][i].getTurn() == board[1][i].getTurn() && board[1][i].getTurn() == board[2][i].getTurn()
-                    && board[0][i].getTurn() != TileState.EMPTY) {
-                if (board[0][i].getTurn() == TileState.X) {
+                    && board[0][i].getTurn() != TileStates.EMPTY) {
+                if (board[0][i].getTurn() == TileStates.X) {
                     gameState = GameState.x_WINS;
                     return;
-                } else if (board[0][i].getTurn() == TileState.O) {
+                } else if (board[0][i].getTurn() == TileStates.O) {
                     gameState = GameState.O_WINS;
                     return;
                 }
@@ -139,7 +112,7 @@ public class TicTacToe {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (board[i][j].getTurn() == TileState.EMPTY) {
+                if (board[i][j].getTurn() == TileStates.EMPTY) {
                     gameState = GameState.CONTINUE;
 
                     if(currentPlayer instanceof X_Player) {
@@ -158,15 +131,45 @@ public class TicTacToe {
     //make a move
     public boolean Move(int x, int y) {
         if (gameState == GameState.CONTINUE) {
-            if (board[x][y].getTurn() != TileState.EMPTY) {
-                throw new IllegalArgumentException("tile is already occupied");
+            if (board[x][y].getTurn() != TileStates.EMPTY) {
+                return false;
             }
             board[x][y].setTileState(currentPlayer.getTileState());
             UpdateGameState();
             return true;
-        } else {
-            throw new IllegalArgumentException("Game is over");
+        }   // Returns move VALIDITY
+        return false;
+
+    }
+    
+    public class MementoTicTacToe {
+        private final Coordinates[][] memBoard;
+    
+        private MementoTicTacToe(Coordinates[][] b) {
+            memBoard = new Coordinates[3][3];
+            for (int i=0; i<3; i++)
+                for (int j=0; j<3; j++) {
+                    memBoard[i][j] = new Coordinates(b[i][j].getX(), b[i][j].getY());
+                    memBoard[i][j].setTileState(b[i][j].getTurn());
+                }
+        }
+        private Coordinates[][] getBoard() {
+            return memBoard;
         }
     }
+    public MementoTicTacToe saveMemento() {
+        return new MementoTicTacToe(board);
+    }
+
+    public void restoreFromMemento(MementoTicTacToe m) {
+        Coordinates[][] mem = m.getBoard();
+        for (int i=0; i<3; i++)
+            for (int j=0; j<3; j++) {
+                board[i][j].setTileState(mem[i][j].getTurn());
+            }
+        UpdateGameState();
+    }
+
+ 
 
 }

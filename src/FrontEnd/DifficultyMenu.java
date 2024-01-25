@@ -1,13 +1,12 @@
 package FrontEnd;
 
-import BackEnd.Easy;
-import BackEnd.Medium;
-import BackEnd.Hard;
-import BackEnd.Impossible;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import AI.*;
+
 
 public class DifficultyMenu extends JPanel {
     private final JButton easy;

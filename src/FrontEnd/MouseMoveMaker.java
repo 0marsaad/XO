@@ -1,6 +1,6 @@
 package FrontEnd;
 
-import BackEnd.TileState;
+
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -17,7 +17,7 @@ public class MouseMoveMaker implements MouseListener {
     
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (tile.getState() == TileState.EMPTY)
+        if (tile.getState() instanceof EmptyState)
             tile.move();
         tile.updateState(); // This is intentionally outside the if-statement
     }
@@ -34,7 +34,7 @@ public class MouseMoveMaker implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        if (tile.getState() == TileState.EMPTY)
+        if (tile.getState() instanceof EmptyState)
             tile.setBorder(validHighlight);
         else
             tile.setBorder(invalidHighlight);
